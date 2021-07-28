@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <title>Weather Dashboard</title>
+</head>
+
+<body>
+    <header class="header text-center">
+        <h1>Weather Dashboard</h1>
+    </header>
+
+    <br>
+
+
+
+    <div class="row container-fluid">
+
+        <div class="col-3 mt-4">
+
+                <h4>Search for a city: </h4>
+
+                <form class="form-group input-group"> <input type="text" class="form-control" id="search-city" placeholder="Enter city here">
+
+                    <div class="input-group-append">
+
+                        <button class="btn btn-info" type="button" id="search-city-button">
+                            <i class="fa fa-search"></i>
+                        </button>
+
+                    </div>
+
+                </form>
+
+                <div class="card">
+
+                    <button id="clear-history" class="btn btn-secondary">Clear History</button>
+
+                </div>
+
+        </div>
+
+
+        <div class="col-9">
+
+            <div class="border rounded p-3">
+
+                <h4> City </h4>
+                <br>
+                <p>Temperature:</p>
+                <p>Wind:</p>
+                <p>Humidity:</p>
+                <p>UV Index:</p>
+
+            </div>
+
+            <div class="col-10 p-3">
+                <h3>5-Day Forecast</h3>
+            </div>
+
+            <div class="row">
+
+                <div class="col-2">
+                    <div class="card p-3">
+                        <p>Date:</p>
+                        <p>picture</p>
+                        <p>Temp:</p>
+                        <p>Wind:</p>
+                        <p>Humidity:</p>
+                    </div>
+
+                </div>
+
+                <div class="col-2">
+                    <div class="card p-3">
+                        <p>Date:</p>
+                        <p>picture</p>
+                        <p>Temp:</p>
+                        <p>Wind:</p>
+                        <p>Humidity:</p>
+                    </div>
+
+                </div>
+
+                <div class="col-2">
+                    <div class="card p-3">
+                        <p>Date:</p>
+                        <p>picture</p>
+                        <p>Temp:</p>
+                        <p>Wind:</p>
+                        <p>Humidity:</p>
+                    </div>
+
+                </div>
+
+                <div class="col-2">
+                    <div class="card p-3">
+                        <p>Date:</p>
+                        <p>picture</p>
+                        <p>Temp:</p>
+                        <p>Wind:</p>
+                        <p>Humidity:</p>
+                    </div>
+
+                </div>
+
+                <div class="col-2">
+                    <div class="card p-3">
+                        <p>Date:</p>
+                        <p>picture</p>
+                        <p>Temp:</p>
+                        <p>Wind:</p>
+                        <p>Humidity:</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="assets/js/script.js"></script>
+</body>
+
+</html>
