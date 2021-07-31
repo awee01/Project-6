@@ -8,8 +8,8 @@ header {
 h1 { font-weight: bold;
 }
 
-li {
-    list-style: none;
+button {
+    
     margin: 1px 0;
     padding: 5px;
     flex: auto;
@@ -21,7 +21,7 @@ li {
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
 
-li:hover {
+button:hover {
     background-color:rgb(6, 135, 248);
     cursor: pointer;
   }
@@ -35,3 +35,9 @@ body { background-color: rgb(224, 224, 224);
     width: 60px;
 }
 
+.forecast-icon{ 
+
+    height: 60px;
+    width: 60px;
+
+}
