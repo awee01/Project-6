@@ -73,7 +73,7 @@ function loadData() {
 
   for (i = 0; i < citieshistory.length; i++) {
 
-    $("#cities-list").append("<button class = 'prevcity'>" + (citieshistory[i]) + "</button>");
+    $("#cities-list").append("<button class = 'previouscities'>" + (citieshistory[i]) + "</button>");
 
   }
 }
@@ -171,6 +171,18 @@ var fiveDayForecast = function (forecast) {
 
 searchBtn.addEventListener("click", formSubmitHandler);
 FormEl.addEventListener("submit", formSubmitHandler);
+
+
+$(".previouscities").click(function () {
+
+
+
+  console.log("dddd")
+
+})
+
+
+ 
 
 //loads data on page refresh
 loadData();
