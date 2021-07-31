@@ -1,112 +1,88 @@
-
-
-
-
-
-// API  key
-const apiKey = "135fd6bfa610d560677626ceda102a58";
-
-// Declare array to keep history of cities
+var cityInputEl = document.querySelector("#search-city-input");
+var FormEl = document.querySelector(".form-group");
 var citieshistory = [];
 
-// pressing enter is the same as clicking the search button
-$(document).on("keydown", e => {
-    if (e.key == "Enter") {
-        $("#search-city-button").click();
-        event.preventDefault();
-    }
-});
 
 
-// adding a new city to the form
-$("#search-city-button").on("click", function () {
+//on submitting the search city form
+var formSubmitHandler = function (event) {
+  event.preventDefault();
+  var cityInput = cityInputEl.value.trim();
+  getCoordinates(cityInput);
+  
+};
 
-    var citysearchInput = $("#search-city-input").val().trim().toUpperCase();
+//saving cities to local storage 
+ function saveCity() {
+  var citysearchInput = $("#search-city-input").val().trim().toUpperCase();
 
-    //prevents duplicates
-    if (citieshistory.includes(citysearchInput)){
-        
-    }
-    //prevents recording blank input
-    else if (citysearchInput == "") {
-    
-    } else {
 
+ 
+  //prevents duplicates
+  if (citieshistory.includes(citysearchInput)) {
+  }
+  //prevents recording blank input
+  else if (citysearchInput == "") {
+
+  } else {
     citieshistory.push(citysearchInput);
-
     $('#cities-list').append('<li>' + citysearchInput + '</li>');
-       
-    }
-      localStorage.setItem("citieshistorysavedstorage",JSON.stringify(citieshistory));
+  }
+  localStorage.setItem("citieshistorysavedstorage", JSON.stringify(citieshistory));
 
-})
+}
+ 
+
+function loadCities(){
+
+
+
+  if(localStorage.getItem("citieshistorysavedstorage") !== null) {
+
+  citieshistory = JSON.parse(localStorage.getItem("citieshistorysavedstorage"));
+  }
+  
+  for (i = 0; i <citieshistory.length; i++) {
+
+    $('#cities-list').append('<li>' + (citieshistory[i]) + '</li>');
+
+  }
+}
 
 
 // Clear Search History Function
-$("#clear-history").click(function() {
-    localStorage.clear();
-    citieshistory = [];
-    $("#cities-list").remove();
-    location.reload();
+$("#clear-history").click(function () {
+  localStorage.clear();
+  $("#cities-list").remove();
+});
+
+
+
+
+//fetch to get the coordinates of the city
+var getCoordinates = function (city) {
+  var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=metric&appid=135fd6bfa610d560677626ceda102a58";
+
+  fetch(apiUrl).then(function (response) {
+
+    if (response.ok) {
+
+      response.json().then(function (data) {
+        var longitude = data.coord['lon'];
+        var latitude = data.coord['lat'];
+        console.log(longitude, latitude);
+
+        saveCity();
+        
+      });
+
+
+
+    }
   });
+};
+
+loadCities();
 
 
-// Load local storage when refreshing page
-
-function loadData() {
-
-var savedcityhistory = JSON.parse(localStorage.getItem("citieshistorysavedstorage"));
-
-console.log(savedcityhistory)
-
-for (i=0; i<savedcityhistory.length; i++) {
-
-  $('#cities-list').append('<li>' + savedcityhistory[i] + '</li>');
-
-}
-
-}
-
-loadData();
-
-
-
-
-
-
-
-
-
-function fetchweatherAPI() {
-
-  fetch("http://api.openweathermap.org/data/2.5/forecast?q=Toronto&units=metric&appid=135fd6bfa610d560677626ceda102a58")
-
-  .then(response => response.json())
-
-
-  .then(data => console.log(data));
-
-
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   
+FormEl.addEventListener("submit", formSubmitHandler);
