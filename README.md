@@ -11,5 +11,7 @@ Only valid city names will be accepted. Inputs that are not named cities, or spe
 
 I have also prevented duplicate city searches for less clutter
 
-github:
+github: https://github.com/awee01/Project-6
+
+
 live link:
