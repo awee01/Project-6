@@ -1,7 +1,7 @@
 # Project-6. Weather Dashboard  
 
 
-Users can input a city name to fetch data from a weather API. Users will be able to see weather details of the current day, and subsequent 5 days
+Users can input a city name to fetch data from a weather API. Users will be able to see weather details of the current day, and subsequent 5 days. Type the city you wish you view the weather and either press enter or the search button icon.
 
 The city is saved in a search history navbar. The saved list of cities persists in local storage, and remains after refresh
 
