@@ -14,7 +14,7 @@ I have also prevented duplicate city searches for less clutter
 github: https://github.com/awee01/Project-6
 
 
-live link:
+live link: https://awee01.github.io/Project-6/
 
 
 Screenshot: ![screenshot](https://user-images.githubusercontent.com/85651950/127752125-f1c9f098-eda8-4574-b118-f276ce3462c2.png)
