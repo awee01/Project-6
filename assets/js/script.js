@@ -13,32 +13,35 @@ var apiKey = "135fd6bfa610d560677626ceda102a58"
 var formSubmitHandler = function (event) {
   event.preventDefault();
 
-  getCityCoordinates(cityInputEl.value.trim());
+  getCityCoordinates(cityInputEl.value.trim().toUpperCase());
 
 };
 
 //Fetch API to get the coordinates of the city. Only valid cities accepted and put into save function
 var getCityCoordinates = function (city) {
-  var coordinates = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`;
 
-  fetch(coordinates).then(function (response) {
-    if (response.ok) {
-      response.json().then(function (data) {
+  fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`)
 
-        var longitude = data.coord.lon;
-        var latitude = data.coord.lat;
+    .then(function (response) {
 
-        // activates getting city weather function with given coordinates
-        getCityWeather(longitude, latitude);
+      if (response.ok) {
 
-        // names city on current weather forecast
-        currentCityName.textContent = `${city} (${moment().format("M/D/YYYY")})`.toUpperCase();;
+        response.json().then(function (data) {
 
-        //save function is only activated if city exists and coordinates are given
-        saveCity();
-      });
-    }
-  });
+          var longitude = data.coord.lon;
+          var latitude = data.coord.lat;
+
+          // activates getting city weather function with given coordinates
+          getCityWeather(longitude, latitude);
+
+          // names city on current weather forecast
+          currentCityName.textContent = `${city} (${moment().format("M/D/YYYY")})`.toUpperCase();;
+
+          //save function is only activated if city exists and coordinates are given
+          saveCity();
+        });
+      }
+    });
 };
 
 //Save function to the city history list and local storage
@@ -86,18 +89,21 @@ $("#clear-history").click(function () {
 // Uses coordinates of the city to fetch current weather and 5 day forecast details using onecall api
 // onecall API gives all details needed if given the city's coordinates
 var getCityWeather = function (longitude, latitude) {
-  var oneCallApi = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&units=metric&exclude=minutely,hourly,alerts&appid=${apiKey}`;
 
-  fetch(oneCallApi).then(function (response) {
-    if (response.ok) {
-      response.json().then(function (data) {
+  fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&units=metric&exclude=minutely,hourly,alerts&appid=${apiKey}`)
 
-        currentWeather(data);
-        fiveDayWeather(data);
+    .then(function (response) {
 
-      });
-    }
-  })
+      if (response.ok) {
+
+        response.json().then(function (data) {
+
+          currentWeather(data);
+          fiveDayWeather(data);
+
+        });
+      }
+    })
 }
 
 // Current Weather function
@@ -118,9 +124,10 @@ var currentWeather = function (forecast) {
 
   var currentUV = document.querySelector("#current-UV");
   currentUV.textContent = forecast.current.uvi;
-  var UVcolor = forecast.current.uvi;
 
   // UV Colors index
+
+  var UVcolor = forecast.current.uvi;
 
   if (UVcolor < 2) {
     $("#current-UV").addClass("bglow p-2 rounded");

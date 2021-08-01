@@ -2,7 +2,6 @@ header {
     text-align: center;
     background: rgb(59, 204, 230);
     padding: 10px;
-    
 }
 
 h1 { font-weight: bold;
@@ -31,14 +30,14 @@ body { background-color: rgb(224, 224, 224);
 }
 
 .weather-icon {
-    height: 60px;
-    width: 60px;
+    height: 70px;
+    width: 70px;
 }
 
 .forecast-icon{ 
 
-    height: 60px;
-    width: 60px;
+    height: 70px;
+    width: 70px;
 
 }
 
