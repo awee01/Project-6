@@ -168,7 +168,7 @@ var fiveDayForecast = function (forecast) {
         var forecastIcon = document.querySelector('#p-' + i);
         var forecastIconCode = forecast.daily[i].weather[0].icon;
         forecastIcon.setAttribute('src', `http://openweathermap.org/img/wn/${forecastIconCode}.png`);
-        forecastIcon.setAttribute('alt', forecast.daily[i].weather[0].main);
+        
 
         var forecastTemp = document.querySelector("#t-" + i);
         forecastTemp.textContent = forecast.daily[i].temp.day + "°C";
