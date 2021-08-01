@@ -5,11 +5,8 @@ var searchBtn = document.querySelector("#search-city-button");
 var citieshistory = [];
 var apiKey = "135fd6bfa610d560677626ceda102a58"
 
-
-
 // a function gets value for input, then that value is used for input into another function and so on
 // the path goes: submit a valid city -> getCityCoordinates - > getCityWeather - > get current and 5day weather data
-
 
 //On submitting the search city form, record input and activate function to get the city coordinates 
 
@@ -26,28 +23,24 @@ var getCityCoordinates = function (city) {
   var coordinates = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`;
 
   fetch(coordinates).then(function (response) {
-
     if (response.ok) {
-
       response.json().then(function (data) {
         
         var longitude = data.coord.lon;
         var latitude = data.coord.lat;
 
         // activates getting city weather function with given coordinates
-        getCityWeather(city, longitude, latitude);
+        getCityWeather(longitude, latitude);
 
         // names city on current weather forecast
         currentCityName.textContent = `${city} (${moment().format("M/D/YYYY")})`.toUpperCase();;
 
         //save function is only activated if city exists and coordinates are given
         saveCity();
-
       });
     }
   });
 };
-
 
 //Save function to the city history list and local storage
 function saveCity() {
@@ -66,10 +59,8 @@ function saveCity() {
     $("#cities-list").append(`<button onclick='getHistoricalCity("${citysearchInput}")'>` + citysearchInput + "</button>");
 
     localStorage.setItem("citieshistorysavedstorage", JSON.stringify(citieshistory));
-
   }
 }
-
 // Load local storage when refreshing page, restores previous city history list
 
 function loadData() {
@@ -93,14 +84,15 @@ $("#clear-history").click(function () {
   location.reload();
 });
 
-// Uses coordinates of the city to fetch current weather and 5 day forecast details
-var getCityWeather = function (city, longitude, latitude) {
+// Uses coordinates of the city to fetch current weather and 5 day forecast details using onecall api
+// onecall API gives all details needed if given the city's coordinates
+var getCityWeather = function (longitude, latitude) {
   var oneCallApi = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&units=metric&exclude=minutely,hourly,alerts&appid=${apiKey}`;
+  
   fetch(oneCallApi).then(function (response) {
     if (response.ok) {
       response.json().then(function (data) {
 
-        console.log(data);
         currentForecast(data);
         fiveDayForecast(data);
 
@@ -156,7 +148,6 @@ var currentForecast = function (forecast) {
   }
 }
 
-
 // Five Day Forecast function
 var fiveDayForecast = function (forecast) {
 
@@ -169,7 +160,6 @@ var fiveDayForecast = function (forecast) {
         var forecastIconCode = forecast.daily[i].weather[0].icon;
         forecastIcon.setAttribute('src', `http://openweathermap.org/img/wn/${forecastIconCode}.png`);
         
-
         var forecastTemp = document.querySelector("#t-" + i);
         forecastTemp.textContent = forecast.daily[i].temp.day + "°C";
 
@@ -178,7 +168,6 @@ var fiveDayForecast = function (forecast) {
 
         var forecasthumidity = document.querySelector("#h-" + i);
         forecasthumidity.textContent = forecast.daily[i].humidity + " % ";
-  
   }
 }
 
@@ -186,7 +175,6 @@ var fiveDayForecast = function (forecast) {
 
 searchBtn.addEventListener("click", formSubmitHandler);
 FormEl.addEventListener("submit", formSubmitHandler);
-
 
 //past cities buttons on click function
 var getHistoricalCity = function (city) {
