@@ -13,7 +13,9 @@ var apiKey = "135fd6bfa610d560677626ceda102a58"
 var formSubmitHandler = function (event) {
   event.preventDefault();
 
-  getCityCoordinates(cityInputEl.value.trim().toUpperCase());
+  var city = cityInputEl.value.trim().toUpperCase()
+
+  getCityCoordinates(city);
 
 };
 
@@ -98,8 +100,8 @@ var getCityWeather = function (longitude, latitude) {
 
         response.json().then(function (data) {
 
-          currentWeather(data);
-          fiveDayWeather(data);
+          currentWeatherForecast(data);
+          fiveDayWeatherForecast(data);
 
         });
       }
@@ -107,27 +109,27 @@ var getCityWeather = function (longitude, latitude) {
 }
 
 // Current Weather function
-var currentWeather = function (forecast) {
+var currentWeatherForecast = function (data) {
 
   var weatherIcon = document.querySelector("#current-icon");
-  var currentIcon = forecast.current.weather[0].icon;
+  var currentIcon = data.current.weather[0].icon;
   weatherIcon.setAttribute("src", `http://openweathermap.org/img/wn/${currentIcon}.png`);
 
   var currentTemp = document.querySelector("#current-temp");
-  currentTemp.textContent = forecast.current.temp + "°C";
+  currentTemp.textContent = data.current.temp + "°C";
 
   var currentwind = document.querySelector("#current-wind");
-  currentwind.textContent = forecast.current.wind_speed + " M/S (metres/second)";
+  currentwind.textContent = data.current.wind_speed + " M/S (metres/second)";
 
   var currenthumidity = document.querySelector("#current-humidity");
-  currenthumidity.textContent = forecast.current.humidity + " % ";
+  currenthumidity.textContent = data.current.humidity + " % ";
 
   var currentUV = document.querySelector("#current-UV");
-  currentUV.textContent = forecast.current.uvi;
+  currentUV.textContent = data.current.uvi;
 
   // UV Colors index
 
-  var UVcolor = forecast.current.uvi;
+  var UVcolor = data.current.uvi;
 
   if (UVcolor < 2) {
     $("#current-UV").addClass("bglow p-2 rounded");
@@ -155,7 +157,7 @@ var currentWeather = function (forecast) {
 }
 
 // Five Day Forecast function
-var fiveDayWeather = function (forecast) {
+var fiveDayWeatherForecast = function (data) {
 
   for (var i = 1; i < 6; i++) {
 
@@ -163,17 +165,17 @@ var fiveDayWeather = function (forecast) {
     forecastdates.textContent = moment().add(i, "days").format("M/D/YYYY");
 
     var forecastIcon = document.querySelector('#p-' + i);
-    var forecastIconCode = forecast.daily[i].weather[0].icon;
+    var forecastIconCode = data.daily[i].weather[0].icon;
     forecastIcon.setAttribute('src', `http://openweathermap.org/img/wn/${forecastIconCode}.png`);
 
     var forecastTemp = document.querySelector("#t-" + i);
-    forecastTemp.textContent = forecast.daily[i].temp.day + "°C";
+    forecastTemp.textContent = data.daily[i].temp.day + "°C";
 
     var forecastWind = document.querySelector("#w-" + i);
-    forecastWind.textContent = forecast.daily[i].wind_speed + " M/S";
+    forecastWind.textContent = data.daily[i].wind_speed + " M/S";
 
     var forecasthumidity = document.querySelector("#h-" + i);
-    forecasthumidity.textContent = forecast.daily[i].humidity + " % ";
+    forecasthumidity.textContent = data.daily[i].humidity + " % ";
   }
 }
 
