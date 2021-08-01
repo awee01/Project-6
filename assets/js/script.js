@@ -6,7 +6,13 @@ var citieshistory = [];
 var apiKey = "135fd6bfa610d560677626ceda102a58"
 
 
+
+// a function gets value for input, then that value is used for input into another function and so on
+// the path goes: submit a valid city -> getCityCoordinates - > getCityWeather - > get current and 5day weather data
+
+
 //On submitting the search city form, record input and activate function to get the city coordinates 
+
 var formSubmitHandler = function (event) {
   event.preventDefault();
   var cityInput = cityInputEl.value.trim();
@@ -29,6 +35,8 @@ var getCityCoordinates = function (city) {
 
         // activates getting city weather function with given coordinates
         getCityWeather(city, longitude, latitude);
+
+        // names city on current weather forecast
         currentCityName.textContent = `${city} (${moment().format("M/D/YYYY")})`.toUpperCase();;
 
         //save function is only activated if city exists and coordinates are given
@@ -89,7 +97,6 @@ $("#clear-history").click(function () {
 
 
 // Uses coordinates of the city to fetch current weather and 5 day forecast details
-
 var getCityWeather = function (city, longitude, latitude) {
   var oneCallApi = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&units=metric&exclude=minutely,hourly,alerts&appid=${apiKey}`;
   fetch(oneCallApi).then(function (response) {
