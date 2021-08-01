@@ -73,8 +73,6 @@ function saveCity() {
 
 function loadData() {
 
-  
-
   // avoids null error
   if(localStorage.getItem("citieshistorysavedstorage") !== null) {
     citieshistory = JSON.parse(localStorage.getItem("citieshistorysavedstorage"));
@@ -83,7 +81,6 @@ function loadData() {
   for (i = 0; i < citieshistory.length; i++) {
 
     $("#cities-list").append(`<button onclick='getHistoricalCity("${citieshistory[i]}")'>` + (citieshistory[i]) + "</button>");
-
   }
 }
 
@@ -94,7 +91,6 @@ $("#clear-history").click(function () {
   localStorage.clear();
   location.reload();
 });
-
 
 // Uses coordinates of the city to fetch current weather and 5 day forecast details
 var getCityWeather = function (city, longitude, latitude) {
@@ -114,7 +110,6 @@ var getCityWeather = function (city, longitude, latitude) {
 
 // Current Weather function
 var currentForecast = function (forecast) {
-
 
   var weatherIcon = document.querySelector("#current-icon");
   var currentIcon = forecast.current.weather[0].icon;
@@ -192,16 +187,11 @@ searchBtn.addEventListener("click", formSubmitHandler);
 FormEl.addEventListener("submit", formSubmitHandler);
 
 
-
-
 //past cities buttons on click function
 var getHistoricalCity = function (city) {
     
   getCityCoordinates(city)
 }
-
-
- 
 
 //loads data on page refresh
 loadData();
