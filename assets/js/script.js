@@ -13,7 +13,6 @@ var apiKey = "135fd6bfa610d560677626ceda102a58"
 var formSubmitHandler = function (event) {
   event.preventDefault();
 
-
   getCityCoordinates(cityInputEl.value.trim());
 
 };
@@ -25,7 +24,7 @@ var getCityCoordinates = function (city) {
   fetch(coordinates).then(function (response) {
     if (response.ok) {
       response.json().then(function (data) {
-        
+
         var longitude = data.coord.lon;
         var latitude = data.coord.lat;
 
@@ -66,7 +65,7 @@ function saveCity() {
 function loadData() {
 
   // avoids null error
-  if(localStorage.getItem("citieshistorysavedstorage") !== null) {
+  if (localStorage.getItem("citieshistorysavedstorage") !== null) {
     citieshistory = JSON.parse(localStorage.getItem("citieshistorysavedstorage"));
   }
 
@@ -88,13 +87,13 @@ $("#clear-history").click(function () {
 // onecall API gives all details needed if given the city's coordinates
 var getCityWeather = function (longitude, latitude) {
   var oneCallApi = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&units=metric&exclude=minutely,hourly,alerts&appid=${apiKey}`;
-  
+
   fetch(oneCallApi).then(function (response) {
     if (response.ok) {
       response.json().then(function (data) {
 
-        currentForecast(data);
-        fiveDayForecast(data);
+        currentWeather(data);
+        fiveDayWeather(data);
 
       });
     }
@@ -102,7 +101,7 @@ var getCityWeather = function (longitude, latitude) {
 }
 
 // Current Weather function
-var currentForecast = function (forecast) {
+var currentWeather = function (forecast) {
 
   var weatherIcon = document.querySelector("#current-icon");
   var currentIcon = forecast.current.weather[0].icon;
@@ -141,7 +140,7 @@ var currentForecast = function (forecast) {
     $("#current-UV").addClass("bgveryhigh p-2 rounded");
     $("#current-UV").removeClass("bgmoderate bghigh bglow bgextreme");
   }
-  if (UVcolor >=10) {
+  if (UVcolor >= 10) {
     $("#current-UV").addClass("bgextreme p-2 rounded");
     $("#current-UV").removeClass("bgmoderate bghigh bgveryhigh bglow");
 
@@ -149,25 +148,25 @@ var currentForecast = function (forecast) {
 }
 
 // Five Day Forecast function
-var fiveDayForecast = function (forecast) {
+var fiveDayWeather = function (forecast) {
 
   for (var i = 1; i < 6; i++) {
 
-        var forecastdates = document.querySelector("#d-" + i);
-        forecastdates.textContent = moment().add(i, "days").format("M/D/YYYY");
+    var forecastdates = document.querySelector("#d-" + i);
+    forecastdates.textContent = moment().add(i, "days").format("M/D/YYYY");
 
-        var forecastIcon = document.querySelector('#p-' + i);
-        var forecastIconCode = forecast.daily[i].weather[0].icon;
-        forecastIcon.setAttribute('src', `http://openweathermap.org/img/wn/${forecastIconCode}.png`);
-        
-        var forecastTemp = document.querySelector("#t-" + i);
-        forecastTemp.textContent = forecast.daily[i].temp.day + "°C";
+    var forecastIcon = document.querySelector('#p-' + i);
+    var forecastIconCode = forecast.daily[i].weather[0].icon;
+    forecastIcon.setAttribute('src', `http://openweathermap.org/img/wn/${forecastIconCode}.png`);
 
-        var forecastWind = document.querySelector("#w-" + i);
-        forecastWind.textContent = forecast.daily[i].wind_speed + " M/S";
+    var forecastTemp = document.querySelector("#t-" + i);
+    forecastTemp.textContent = forecast.daily[i].temp.day + "°C";
 
-        var forecasthumidity = document.querySelector("#h-" + i);
-        forecasthumidity.textContent = forecast.daily[i].humidity + " % ";
+    var forecastWind = document.querySelector("#w-" + i);
+    forecastWind.textContent = forecast.daily[i].wind_speed + " M/S";
+
+    var forecasthumidity = document.querySelector("#h-" + i);
+    forecasthumidity.textContent = forecast.daily[i].humidity + " % ";
   }
 }
 
@@ -178,7 +177,7 @@ FormEl.addEventListener("submit", formSubmitHandler);
 
 //past cities buttons on click function
 var getHistoricalCity = function (city) {
-    
+
   getCityCoordinates(city)
 }
 
