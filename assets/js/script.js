@@ -15,8 +15,9 @@ var apiKey = "135fd6bfa610d560677626ceda102a58"
 
 var formSubmitHandler = function (event) {
   event.preventDefault();
-  var cityInput = cityInputEl.value.trim();
-  getCityCoordinates(cityInput);
+
+
+  getCityCoordinates(cityInputEl.value.trim());
 
 };
 
