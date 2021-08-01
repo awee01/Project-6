@@ -41,3 +41,13 @@ body { background-color: rgb(224, 224, 224);
     width: 60px;
 
 }
+
+.bglow {background-color: green;}
+
+.bgmoderate {background-color: yellow;}
+
+.bghigh {background-color:orange}
+
+.bgveryhigh{background-color: red}
+
+.bgextreme {background-color: purple}

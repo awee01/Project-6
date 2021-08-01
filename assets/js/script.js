@@ -55,7 +55,7 @@ function saveCity() {
 
     //appends button to list for later navigation
     citieshistory.push(citysearchInput);
-    $("#cities-list").append("<button class = 'previouscities'>" + citysearchInput + "</button>");
+    $("#cities-list").append(`<button onclick='getHistoricalCity("${citysearchInput}")'>` + citysearchInput + "</button>");
 
     localStorage.setItem("citieshistorysavedstorage", JSON.stringify(citieshistory));
 
@@ -73,7 +73,7 @@ function loadData() {
 
   for (i = 0; i < citieshistory.length; i++) {
 
-    $("#cities-list").append("<button class = 'previouscities'>" + (citieshistory[i]) + "</button>");
+    $("#cities-list").append(`<button onclick='getHistoricalCity("${citieshistory[i]}")'>` + (citieshistory[i]) + "</button>");
 
   }
 }
@@ -127,20 +127,30 @@ var currentForecast = function (forecast) {
   // UV Colors index
 
   if (UVcolor < 2) {
-    $("#current-UV").addClass("bg-success p-2 rounded text-light");
-    $("#current-UV").removeClass("bg-warning bg-danger");
+    $("#current-UV").addClass("bglow p-2 rounded");
+    $("#current-UV").removeClass("bgmoderate bghigh bgveryhigh bgextreme");
   }
-  if (UVcolor >= 2 && UVcolor <= 5) {
-    $("#current-UV").addClass("bg-warning p-2 rounded text-light");
-    $("#current-UV").removeClass("bg-success bg-danger");
-  }
-  if (UVcolor >= 5) {
-    $("#current-UV").addClass("bg-danger p-2 rounded text-light");
-    $("#current-UV").removeClass("bg-success bg-warning");
+  if (UVcolor >= 2 && UVcolor < 5) {
+    $("#current-UV").addClass("bgmoderate p-2 rounded");
+    $("#current-UV").removeClass("bgmlow bghigh bgveryhigh bgextreme");
 
   }
+  if (UVcolor >= 5 && UVcolor < 8) {
+    $("#current-UV").addClass("bghigh p-2 rounded");
+    $("#current-UV").removeClass("bgmoderate bglow bgveryhigh bgextreme");
+  }
 
+  if (UVcolor >= 8 && UVcolor < 10) {
+    $("#current-UV").addClass("bgveryhigh p-2 rounded");
+    $("#current-UV").removeClass("bgmoderate bghigh bglow bgextreme");
+  }
+  if (UVcolor >=10) {
+    $("#current-UV").addClass("bgextreme p-2 rounded");
+    $("#current-UV").removeClass("bgmoderate bghigh bgveryhigh bglow");
+
+  }
 }
+
 
 // Five Day Forecast function
 var fiveDayForecast = function (forecast) {
@@ -173,13 +183,11 @@ searchBtn.addEventListener("click", formSubmitHandler);
 FormEl.addEventListener("submit", formSubmitHandler);
 
 
-$(".previouscities").click(function () {
-
-
-
-  console.log("dddd")
-
-})
+//past cities buttons on click function
+var getHistoricalCity = function (city) {
+    
+  getCoordinates(city)
+}
 
 
  
