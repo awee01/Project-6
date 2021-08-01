@@ -10,12 +10,12 @@ var apiKey = "135fd6bfa610d560677626ceda102a58"
 var formSubmitHandler = function (event) {
   event.preventDefault();
   var cityInput = cityInputEl.value.trim();
-  getCoordinates(cityInput);
+  getCityCoordinates(cityInput);
 
 };
 
 //Fetch API to get the coordinates of the city. Only valid cities accepted and put into save function
-var getCoordinates = function (city) {
+var getCityCoordinates = function (city) {
   var coordinates = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`;
 
   fetch(coordinates).then(function (response) {
@@ -23,8 +23,10 @@ var getCoordinates = function (city) {
     if (response.ok) {
 
       response.json().then(function (data) {
-        var longitude = data.coord["lon"];
-        var latitude = data.coord["lat"];
+        
+        var longitude = data.coord.lon;
+        var latitude = data.coord.lat;
+
         // activates getting city weather function with given coordinates
         getCityWeather(city, longitude, latitude);
         currentCityName.textContent = `${city} (${moment().format("M/D/YYYY")})`.toUpperCase();;
@@ -106,8 +108,6 @@ var getCityWeather = function (city, longitude, latitude) {
 // Current Weather function
 var currentForecast = function (forecast) {
 
-  var defaultpage = document.querySelector('.defaultpage');
-  defaultpage.classList.remove('hide');
 
   var weatherIcon = document.querySelector("#current-icon");
   var currentIcon = forecast.current.weather[0].icon;
@@ -190,7 +190,7 @@ FormEl.addEventListener("submit", formSubmitHandler);
 //past cities buttons on click function
 var getHistoricalCity = function (city) {
     
-  getCoordinates(city)
+  getCityCoordinates(city)
 }
 
 
