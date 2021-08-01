@@ -51,3 +51,7 @@ body { background-color: rgb(224, 224, 224);
 .bgveryhigh{background-color: red}
 
 .bgextreme {background-color: purple}
+
+.hide {
+    display: none;
+}
