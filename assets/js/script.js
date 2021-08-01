@@ -6,9 +6,6 @@ var citieshistory = [];
 var apiKey = "135fd6bfa610d560677626ceda102a58"
 
 
-
-
-
 //On submitting the search city form, record input and activate function to get the city coordinates 
 var formSubmitHandler = function (event) {
   event.preventDefault();
@@ -66,6 +63,8 @@ function saveCity() {
 
 function loadData() {
 
+  
+
   // avoids null error
   if(localStorage.getItem("citieshistorysavedstorage") !== null) {
     citieshistory = JSON.parse(localStorage.getItem("citieshistorysavedstorage"));
@@ -106,6 +105,9 @@ var getCityWeather = function (city, longitude, latitude) {
 
 // Current Weather function
 var currentForecast = function (forecast) {
+
+  var defaultpage = document.querySelector('.defaultpage');
+  defaultpage.classList.remove('hide');
 
   var weatherIcon = document.querySelector("#current-icon");
   var currentIcon = forecast.current.weather[0].icon;
@@ -181,6 +183,8 @@ var fiveDayForecast = function (forecast) {
 
 searchBtn.addEventListener("click", formSubmitHandler);
 FormEl.addEventListener("submit", formSubmitHandler);
+
+
 
 
 //past cities buttons on click function
