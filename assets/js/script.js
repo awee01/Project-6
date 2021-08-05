@@ -159,7 +159,7 @@ var currentWeatherForecast = function (data) {
 // Five Day Forecast function
 var fiveDayWeatherForecast = function (data) {
 
-  for (var i = 1; i < 6; i++) {
+  for (var i = 1; i <=5; i++) {
 
     var forecastdates = document.querySelector("#d-" + i);
     forecastdates.textContent = moment().add(i, "days").format("M/D/YYYY");
